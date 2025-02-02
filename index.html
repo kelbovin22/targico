@@ -1,0 +1,397 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Targic Segurar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+    :root {
+        --primary-color: #4CAF50;
+        --secondary-color: #45a049;
+        --background-color-dark: #121212;
+        --text-color-dark: #e0e0e0;
+        --card-background-dark: #1E1E1E;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    .background-animate {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        opacity: 0.1;
+        animation: backgroundFlow 10s ease infinite;
+        z-index: -1;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 30px 20px;
+        position: relative;
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        animation: fadeIn 0.5s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    h1 i {
+        color: var(--primary-color);
+        font-size: 1.5em;
+    }
+
+    .usage-section {
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        animation: slideUp 0.6s ease-out;
+    }
+
+    .usage-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .usage-section ul {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+
+    .usage-section li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .usage-section li i {
+        color: var(--primary-color);
+    }
+
+    .login-section, .rooms-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    .login-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .login-inputs input {
+        padding: 12px;
+        background-color: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 8px;
+        color: var(--text-color-dark);
+    }
+
+    .login-inputs button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .login-inputs button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .room-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    .room-category {
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .room-category:hover {
+        background-color: rgba(255,255,255,0.1);
+        transform: scale(1.02);
+    }
+
+    .room-category h3 {
+        margin-bottom: 10px;
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .room-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .room-buttons button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .room-buttons button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+    }
+
+    .message {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-align: center;
+        z-index: 1000;
+        animation: slideUp 0.4s ease-out;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        display: none; /* Initially hidden */
+    }
+
+    .message.active {
+        display: block;
+    }
+
+    .message.success {
+        background-color: rgba(76, 175, 80, 0.9);
+        color: white;
+    }
+
+    .message.error {
+        background-color: rgba(244, 67, 54, 0.9);
+        color: white;
+    }
+
+    .user-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid var(--primary-color);
+        margin-bottom: 10px;
+        object-fit: cover;
+        animation: pulse 2s infinite;
+    }
+
+    #leaveRoomBtn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        width: 100%;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    #leaveRoomBtn:hover {
+        background-color: #d32f2f;
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+    }
+
+    #leaveRoomBtn:disabled {
+        background-color: #666;
+        cursor: not-allowed;
+        transform: scale(1);
+    }
+
+    .timer-display {
+        text-align: center;
+        color: var(--primary-color);
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .cooldown-timer {
+        text-align: center;
+        color: var(--primary-color);
+        font-size: 1em;
+        margin-top: 10px;
+        opacity: 0.7;
+    }
+
+    @keyframes backgroundFlow {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.2); }
+        100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .developer-note {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        color: var(--text-color-dark);
+        font-size: 0.8em;
+        opacity: 0.7;
+        animation: fadeIn 1s ease-out;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            padding: 20px 10px;
+        }
+
+        .room-buttons {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .usage-section {
+            font-size: 0.9em;
+        }
+    }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="background-animate"></div>
+    <div class="container">
+        <h1><i class="fas fa-gamepad"></i> Targic Segurar</h1>
+        
+        <div class="usage-section" id="usageSection">
+            <h2><i class="fas fa-info-circle"></i> Como Usar</h2>
+            <ul>
+                <li><i class="fas fa-sign-in-alt"></i> Faça login</li>
+                <li><i class="fas fa-door-open"></i> Selecione uma sala pré-definida</li>
+                <li><i class="fas fa-play"></i> Entre na sala desejada</li>
+                <li><i class="fas fa-comment"></i> Acompanhe as atualizações da sala</li>
+                <li><i class="fas fa-sign-out-alt"></i> Saia da sala quando quiser</li>
+                <li><i class="fas fa-sign-out-alt"></i> Pra usar outra conta, vai ir no tres pontinhos e atualizar.</li>
+            </ul>
+        </div>
+
+        <div id="userProfileSection" style="display:none;">
+            <div class="user-profile">
+                <img id="userAvatar" class="user-avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfdWwVU65gZW5--Ypno_l2GBNhI_sinWkNUw&s" alt="User Avatar">
+                <div id="userUsername"></div>
+            </div>
+        </div>
+
+        <div class="login-inputs" id="loginSection">
+            <input type="text" id="loginInput" placeholder="Login">
+            <input type="password" id="passwordInput" placeholder="Senha">
+            <button onclick="signInTargic()">Login</button>
+        </div>
+
+        <div id="postLoginSection" style="display:none;">
+            <div class="timer-display" id="timerDisplay" style="display:none;">
+                Duração: 00:00:00
+            </div>
+
+            <div class="room-categories">
+                <div class="room-category">
+                    <h3>Salas de Alimentos</h3>
+                    <div class="room-buttons">
+                        <button onclick="joinRoom(10583459)">Alimentos 48</button>
+                        <button onclick="joinRoom(15352976)">Alimentos 49</button>
+                        <button onclick="joinRoom(19474604)">Alimentos 101</button>
+                        <button onclick="joinRoom(19474618)">Alimentos 102</button>
+                        <button onclick="joinRoom(19474632)">Alimentos 103</button>
+                    </div>
+                </div>
+                
+                <div class="room-category">
+                    <h3>Salas de Animais</h3>
+                    <div class="room-buttons">
+                        <button onclick="joinRoom(10583451)">Animais 48</button>
+                        <button onclick="joinRoom(15352954)">Animais 49</button>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="leaveTargicRoom()" id="leaveRoomBtn" disabled>Sair da Sala</button>
+        </div>
+
+        <div id="messageArea" class="message"></div>
+        
+        <pre id="newsArea" style="display: none; background-color: rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; padding: 10px; margin-top: 20px; white-space: pre-wrap; word-wrap: break-word;"></pre>
+        <div id="cooldownTimerArea" class="cooldown-timer" style="display:none;"></div>
+    </div>
+
+    <div class="developer-note">Desenvolvido por Intocado v2</div>
+
+    <script>
+function _0x2e75(_0x2e0100,_0x5ac0a1){const _0x70b898=_0x70b8();return _0x2e75=function(_0x2e752f,_0x4233f3){_0x2e752f=_0x2e752f-0xd3;let _0x54b523=_0x70b898[_0x2e752f];return _0x54b523;},_0x2e75(_0x2e0100,_0x5ac0a1);}const _0x333867=_0x2e75;(function(_0x5b759c,_0x1bc59b){const _0x49b1b8=_0x2e75,_0x145462=_0x5b759c();while(!![]){try{const _0x201371=parseInt(_0x49b1b8(0xd3))/0x1+-parseInt(_0x49b1b8(0xef))/0x2+parseInt(_0x49b1b8(0x10a))/0x3*(-parseInt(_0x49b1b8(0xf0))/0x4)+parseInt(_0x49b1b8(0xe8))/0x5*(parseInt(_0x49b1b8(0x119))/0x6)+-parseInt(_0x49b1b8(0x122))/0x7*(-parseInt(_0x49b1b8(0x11e))/0x8)+-parseInt(_0x49b1b8(0xd8))/0x9+parseInt(_0x49b1b8(0xe2))/0xa;if(_0x201371===_0x1bc59b)break;else _0x145462['push'](_0x145462['shift']());}catch(_0x357848){_0x145462['push'](_0x145462['shift']());}}}(_0x70b8,0xf28c2));const loginInput=document['getElementById'](_0x333867(0x111)),passwordInput=document['getElementById'](_0x333867(0xd7)),loginSection=document[_0x333867(0x125)](_0x333867(0x118)),postLoginSection=document[_0x333867(0x125)]('postLoginSection'),messageArea=document[_0x333867(0x125)](_0x333867(0xed)),newsArea=document['getElementById']('newsArea'),leaveRoomBtn=document['getElementById']('leaveRoomBtn'),userProfileSection=document[_0x333867(0x125)]('userProfileSection'),userAvatar=document[_0x333867(0x125)]('userAvatar'),userUsername=document[_0x333867(0x125)](_0x333867(0x103)),usageSection=document[_0x333867(0x125)]('usageSection'),timerDisplay=document[_0x333867(0x125)]('timerDisplay'),cooldownTimerArea=document['getElementById'](_0x333867(0x130));let idapp='',userCode='',userLogin='',foundRoomId=null,roomName='',lastId=null,updateInterval=null,lastLoginAttempt=0x0,lastLeaveTime=0x0,roomStartTime=null,timerInterval=null,cooldownInterval=null;function formatTime(_0x50e795){const _0x5bd36d=_0x333867,_0xc43d=Math[_0x5bd36d(0x11f)](_0x50e795/0xe10),_0x4cb21b=Math[_0x5bd36d(0x11f)](_0x50e795%0xe10/0x3c),_0x52ede7=_0x50e795%0x3c;return _0xc43d[_0x5bd36d(0x12f)]()[_0x5bd36d(0xff)](0x2,'0')+':'+_0x4cb21b[_0x5bd36d(0x12f)]()[_0x5bd36d(0xff)](0x2,'0')+':'+_0x52ede7[_0x5bd36d(0x12f)]()[_0x5bd36d(0xff)](0x2,'0');}function startTimer(){const _0x3cc1bc=_0x333867;if(timerInterval)clearInterval(timerInterval);roomStartTime=Date[_0x3cc1bc(0xdd)](),timerDisplay[_0x3cc1bc(0xdf)][_0x3cc1bc(0xde)]=_0x3cc1bc(0x10b),timerInterval=setInterval(()=>{const _0x431525=_0x3cc1bc,_0x1b470d=Math[_0x431525(0x11f)]((Date[_0x431525(0xdd)]()-roomStartTime)/0x3e8);timerDisplay[_0x431525(0x106)]=_0x431525(0xe0)+formatTime(_0x1b470d);},0x3e8);}function stopTimer(){const _0x48eb64=_0x333867;timerInterval&&(clearInterval(timerInterval),timerInterval=null,timerDisplay[_0x48eb64(0xdf)][_0x48eb64(0xde)]=_0x48eb64(0xe9),timerDisplay[_0x48eb64(0x106)]=_0x48eb64(0x131));}function displayMessage(_0x148f66,_0x12da82=![],_0x2e5139=0xbb8){const _0x103bf7=_0x333867;messageArea[_0x103bf7(0x106)]=_0x148f66,messageArea['className']=_0x103bf7(0x117)+(_0x12da82?_0x103bf7(0xf8):_0x103bf7(0x110))+_0x103bf7(0x114),setTimeout(()=>{const _0x49c926=_0x103bf7;messageArea['classList']['remove'](_0x49c926(0x11b));},_0x2e5139);}function generateCache(){const _0x3d0cf0=_0x333867;return _0x3d0cf0(0x10e)+Date[_0x3d0cf0(0xdd)]()[_0x3d0cf0(0x12f)]()[_0x3d0cf0(0x115)](-0x7);}function generateIdApp(_0x232ade=0x1b){const _0x270106=_0x333867,_0x24309e='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';return Array[_0x270106(0xea)](crypto[_0x270106(0xf9)](new Uint8Array(_0x232ade)))[_0x270106(0xfa)](_0x4c533d=>_0x24309e[_0x4c533d%_0x24309e[_0x270106(0xf4)]])[_0x270106(0xd5)]('');}function generateAvatarUrl(_0xb229e5){const _0x2575c9=_0x333867;return _0x2575c9(0x116);}function getErrorMessage(_0x250e2d){const _0x3d32c6=_0x333867;switch(_0x250e2d){case 0x1:return _0x3d32c6(0xd9);case 0x2:return _0x3d32c6(0x12b);case 0x3:return'A\x20sala\x20está\x20cheia.\x20Não\x20é\x20possível\x20entrar\x20no\x20momento.';case 0x4:return _0x3d32c6(0xf3);case 0x5:return _0x3d32c6(0x12c);case 0x6:return _0x3d32c6(0xd4);case 0x7:return _0x3d32c6(0xf2);case 0x8:return _0x3d32c6(0x109);case 0x9:return _0x3d32c6(0xfd);case 0xa:return _0x3d32c6(0x102);case 0xb:return _0x3d32c6(0xe1);case 0xc:return _0x3d32c6(0x113);case 0xd:return _0x3d32c6(0x107);case 0xe:return'Senha\x20incorreta.';case 0xf:return _0x3d32c6(0x11d);case 0x10:return _0x3d32c6(0x132);case 0x11:return _0x3d32c6(0xfc);case 0x12:return _0x3d32c6(0x126);case 0x13:return _0x3d32c6(0x120);case 0x14:return'Você\x20foi\x20expulso\x20desta\x20sala.';case 0x15:return'Sala\x20compartilhada\x20não\x20disponível.';case 0x16:return _0x3d32c6(0x112);case 0x17:return _0x3d32c6(0x12a);default:return _0x3d32c6(0xdb)+_0x250e2d+')';}}async function signInTargic(){const _0x19a153=_0x333867,_0x2c0fa8=loginInput[_0x19a153(0x108)][_0x19a153(0xec)](),_0x21bdbc=passwordInput[_0x19a153(0x108)][_0x19a153(0xec)]();if(!_0x2c0fa8||!_0x21bdbc)return displayMessage('Por\x20favor,\x20insira\x20login\x20e\x20senha',!![]);const _0x114511=Date[_0x19a153(0xdd)]();if(_0x114511-lastLoginAttempt<0xc350)return displayMessage(_0x19a153(0xeb),!![]);lastLoginAttempt=_0x114511,idapp=generateIdApp();const _0x5495eb=generateCache(),_0x47651a='https://gartic.pics/r/signin?cache='+_0x5495eb+_0x19a153(0xfb)+idapp,_0x61b994={'login':_0x2c0fa8,'senha':_0x21bdbc,'codigo':undefined};try{const _0x1e76fa=await fetch(_0x47651a,{'method':_0x19a153(0x10f),'headers':{'Content-Type':_0x19a153(0xf6)},'body':JSON['stringify'](_0x61b994)});if(!_0x1e76fa['ok'])throw new Error('Erro\x20na\x20requisição:\x20'+_0x1e76fa['status']);const _0x3b2468=await _0x1e76fa['json']();if(_0x3b2468['erro'])return displayMessage(getErrorMessage(_0x3b2468[_0x19a153(0x127)]),!![]);_0x3b2468[_0x19a153(0x121)]?(userCode=_0x3b2468['codigo'],userLogin=_0x3b2468['login'],userAvatar['src']=generateAvatarUrl(userLogin),userUsername[_0x19a153(0x106)]=userLogin,displayMessage(_0x19a153(0xe5)),loginSection[_0x19a153(0xdf)][_0x19a153(0xde)]=_0x19a153(0xe9),usageSection[_0x19a153(0xdf)][_0x19a153(0xde)]=_0x19a153(0xe9),userProfileSection[_0x19a153(0xdf)][_0x19a153(0xde)]=_0x19a153(0x10b),postLoginSection[_0x19a153(0xdf)]['display']=_0x19a153(0x10b)):displayMessage(_0x19a153(0xfe),!![]);}catch(_0x12d6aa){displayMessage(_0x12d6aa['message'],!![]);}}function startCooldownTimer(){const _0x134e05=_0x333867,_0x5a4019=0x32;let _0x389531=_0x5a4019;cooldownTimerArea[_0x134e05(0xdf)][_0x134e05(0xde)]='block',cooldownInterval=setInterval(()=>{const _0x38c332=_0x134e05;_0x389531--,_0x389531>0x0?cooldownTimerArea['textContent']=_0x38c332(0xf1)+_0x389531+_0x38c332(0xe4):(cooldownTimerArea[_0x38c332(0xdf)]['display']='none',clearInterval(cooldownInterval));},0x3e8);}async function leaveTargicRoom(){const _0x2e8b4d=_0x333867;if(!idapp)return displayMessage('Realize\x20o\x20login\x20primeiro!',!![]);updateInterval&&(clearInterval(updateInterval),updateInterval=null);stopTimer();const _0x2d5b02=generateCache(),_0x5e6e31='https://gartic.pics/room/saida.php?cache='+_0x2d5b02+_0x2e8b4d(0xfb)+idapp+_0x2e8b4d(0x101);try{const _0x36faad=await fetch(_0x5e6e31);if(!_0x36faad['ok'])throw new Error(_0x2e8b4d(0xe3)+_0x36faad[_0x2e8b4d(0xe7)]);displayMessage(_0x2e8b4d(0xf5)),lastLeaveTime=Date[_0x2e8b4d(0xdd)](),foundRoomId=null,roomName='',lastId=null,leaveRoomBtn[_0x2e8b4d(0xd6)]=!![],newsArea[_0x2e8b4d(0xdf)][_0x2e8b4d(0xde)]=_0x2e8b4d(0xe9),newsArea[_0x2e8b4d(0x106)]='',startCooldownTimer();}catch(_0x203677){displayMessage(_0x203677[_0x2e8b4d(0x12d)],!![]);}}function _0x70b8(){const _0x3618b4=['28ascIux','Login\x20ou\x20ID\x20da\x20sala\x20inválido!','Alimentos\x2048','getElementById','Área\x20restrita\x20para\x20usuários\x20não\x20cadastrados.','erro','Sala\x20','https://gartic.pics/room/news.php?lastid=','Você\x20foi\x20expulso\x20da\x20sala.','Desconexão\x20por\x20inatividade.','Usuário\x20já\x20está\x20logado\x20em\x20outra\x20sessão.','message','Realize\x20o\x20login\x20primeiro!','toString','cooldownTimerArea','Duração:\x2000:00:00','Aguarde\x20antes\x20de\x20tentar\x20novamente.','1815468YaPVRs','Você\x20foi\x20banido\x20do\x20Gartic.','join','disabled','passwordInput','16235775WiXEww','Erro\x20no\x20sistema.\x20Por\x20favor,\x20tente\x20novamente.','json','Erro\x20desconhecido\x20(Código:\x20','stringify','now','display','style','Duração:\x20','Erro\x20no\x20sistema.\x20Tente\x20novamente.','9626670iXYsvW','Erro\x20na\x20requisição:\x20','\x20segundos\x20para\x20entrar\x20em\x20outra\x20sala','Login\x20bem-sucedido!','Alimentos\x20101','status','6470qmDKVm','none','from','Aguarde\x2050\x20segundos\x20antes\x20de\x20tentar\x20novamente','trim','messageArea','lastId','1384518upvwfc','1468TPJCqg','Aguarde\x20','Salas\x20de\x20tema\x20não\x20disponíveis.','Limite\x20de\x20usuários\x20do\x20mesmo\x20IP\x20atingido.\x20Tente\x20novamente\x20mais\x20tarde.','length','Saiu\x20da\x20sala!','application/json','ceil','error','getRandomValues','map','&idapp=','Parâmetros\x20inválidos.','Sala\x20inválida.','Erro\x20no\x20login','padStart','match','&tipo=undefined&ajax=1','Sala\x20apenas\x20para\x20usuários\x20cadastrados.','userUsername','Erro\x20ao\x20entrar\x20na\x20sala','Animais\x2049','textContent','Erro\x20no\x20sistema.\x20Por\x20favor,\x20aguarde.','value','Nick\x20já\x20registrado.','4011EhkMXL','block','max','\x20segundos\x20antes\x20de\x20entrar\x20em\x20outra\x20sala','173','POST','success','loginInput','Endereço\x20IP\x20inválido.','Login\x20necessário\x20para\x20acessar.','\x20active','slice','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfdWwVU65gZW5--Ypno_l2GBNhI_sinWkNUw&s','message\x20','loginSection','4164hZUxSL','Alimentos\x2049','active','text','Você\x20já\x20está\x20jogando\x20em\x20outra\x20sala.','608432JwJhdF','floor','Sala\x20apenas\x20para\x20veteranos.','codigo'];_0x70b8=function(){return _0x3618b4;};return _0x70b8();}async function joinRoom(_0x56f7a7){const _0x398719=_0x333867,_0x182a50=Date[_0x398719(0xdd)]();if(_0x182a50-lastLeaveTime<0xc350){const _0xd179ec=Math[_0x398719(0xf7)]((0xc350-(_0x182a50-lastLeaveTime))/0x3e8);return displayMessage(_0x398719(0xf1)+_0xd179ec+_0x398719(0x10d),!![]);}if(!idapp)return displayMessage(_0x398719(0x12e),!![]);foundRoomId=_0x56f7a7,await joinTargicRoom();}async function joinTargicRoom(){const _0x1b941f=_0x333867;if(!idapp||!foundRoomId)return displayMessage(_0x1b941f(0x123),!![]);const _0x2cd565=generateCache(),_0x45a797='https://gartic.pics/r/join?cache='+_0x2cd565+'&idapp='+idapp,_0x31083f={'login':userLogin,'sala':foundRoomId,'avatar':0x0,'local':0x2,'senha':'','idioma':0x1};try{const _0x5767c4=await fetch(_0x45a797,{'method':_0x1b941f(0x10f),'headers':{'Content-Type':_0x1b941f(0xf6)},'body':JSON[_0x1b941f(0xdc)](_0x31083f)});if(!_0x5767c4['ok'])throw new Error('Erro\x20na\x20requisição:\x20'+_0x5767c4['status']);const _0x3ec4d8=await _0x5767c4[_0x1b941f(0xda)]();if(_0x3ec4d8[_0x1b941f(0x127)])return displayMessage(getErrorMessage(_0x3ec4d8[_0x1b941f(0x127)]),!![]);if(_0x3ec4d8[_0x1b941f(0xee)]){lastId=_0x3ec4d8['lastId'];const _0x46119f={0xa17da3:_0x1b941f(0x124),0xea4490:_0x1b941f(0x11a),0x12928ac:_0x1b941f(0xe6),0x12928ba:'Alimentos\x20102',0x12928c8:'Alimentos\x20103',0xa17d9b:'Animais\x2048',0xea447a:_0x1b941f(0x105)},_0x16ef28=_0x46119f[foundRoomId]||_0x1b941f(0x128)+foundRoomId;displayMessage('Entrou\x20na\x20sala\x20'+_0x16ef28+'!'),newsArea['style'][_0x1b941f(0xde)]=_0x1b941f(0x10b),leaveRoomBtn[_0x1b941f(0xd6)]=![],startTimer(),startRoomUpdates();}else displayMessage(_0x1b941f(0x104),!![]);}catch(_0x153054){displayMessage(_0x153054[_0x1b941f(0x12d)],!![]);}}function startRoomUpdates(){if(updateInterval)clearInterval(updateInterval);updateInterval=setInterval(async()=>{const _0x1025c5=_0x2e75;if(!idapp||!foundRoomId||!lastId){clearInterval(updateInterval);return;}const _0x19cfbc=generateCache(),_0x54c4de=_0x1025c5(0x129)+lastId+'&cache='+_0x19cfbc+_0x1025c5(0xfb)+idapp;try{const _0x1cb309=await fetch(_0x54c4de);if(!_0x1cb309['ok'])throw new Error(_0x1025c5(0xe3)+_0x1cb309[_0x1025c5(0xe7)]);const _0x16874b=await _0x1cb309[_0x1025c5(0x11c)]();newsArea[_0x1025c5(0x106)]=_0x16874b,newsArea[_0x1025c5(0xdf)][_0x1025c5(0xde)]=_0x16874b[_0x1025c5(0xec)]()?_0x1025c5(0x10b):_0x1025c5(0xe9);const _0x434ef4=_0x16874b[_0x1025c5(0x100)](/<span id="lastid">(\d+)/);_0x434ef4&&(lastId=Math[_0x1025c5(0x10c)](lastId,parseInt(_0x434ef4[0x1])));}catch(_0x233622){console[_0x1025c5(0xf8)](_0x233622);}},0xfa0);}
+    </script>
+</body>
+</html>
